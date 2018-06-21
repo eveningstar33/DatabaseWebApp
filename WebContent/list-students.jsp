@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ page import="java.util.*, web.jdbc.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,11 +10,6 @@
 	<title>Student Tracker app</title>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
 </head>
-
-<% 
-	// get the students from the request object (sent by servlet)
-	List<Student> theStudents = (List<Student>) request.getAttribute("student_list"); 
-%>
 
 <body>
 
@@ -36,15 +31,15 @@
 				<th>Email</th>
 			</tr>
 			
-			<% for (Student tempStudent : theStudents) { %>
+			<c:forEach var="tempStudent" items="${student_list}">
 			
 				<tr>
-					<td><%= tempStudent.getFirstName() %>
-					<td><%= tempStudent.getLastName() %>
-					<td><%= tempStudent.getEmail() %>
+					<td>${tempStudent.firstName}</td>
+					<td>${tempStudent.lastName}</td>
+					<td>${tempStudent.email}</td>
 				</tr>
 			
-			<% } %>
+			</c:forEach>
 		
 		</table>
 	
