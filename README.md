@@ -1,6 +1,8 @@
 # DatabaseWebApp
 Complete database web app with JDBC, JSP, Servlet, JSTL, MySQL, etc
 
+![index](index.png)
+
 This is a full working JSP and Servlets application that connects to a database. The front end pages are made using JSP and 
 the back end controller is made using Servlet. 
 
