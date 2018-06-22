@@ -62,6 +62,14 @@ public class StudentControllerServlet extends HttpServlet {
 				addStudent(request, response);
 				break; 
 				
+			case "LOAD":
+				loadStudent(request, response);
+				break;
+				
+			case "UPDATE":
+				updateStudent(request, response);
+				break;
+				
 			default:
 				listStudents(request, response);
 			}
@@ -79,10 +87,11 @@ public class StudentControllerServlet extends HttpServlet {
 		List<Student> students = studentDbUtil.getStudents();
 		
 		// add students to the request
-		request.setAttribute("student_list", students);
+		request.setAttribute("STUDENT_LIST", students);
 				
 		// send to JSP page (view)
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/list-students.jsp");
+		RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("/list-students.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -103,6 +112,43 @@ public class StudentControllerServlet extends HttpServlet {
 		// send back to main page (the student list)
 		listStudents(request, response);
 	}
+	
+	private void loadStudent(HttpServletRequest request, HttpServletResponse response) 
+			throws Exception {
+
+			// read student id from form data
+			String theStudentId = request.getParameter("studentId");
+						
+			// get student from database (db util)
+			Student theStudent = studentDbUtil.getStudent(theStudentId);
+			
+			// place student in the request attribute
+			request.setAttribute("THE_STUDENT", theStudent);
+			
+			// send to jsp page: update-student-form.jsp
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("/update-student-form.jsp");
+			dispatcher.forward(request, response);		
+		}
+
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+			// read student info from form data
+			int id = Integer.parseInt(request.getParameter("studentId"));
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String email = request.getParameter("email");
+			
+			// create a new student object
+			Student theStudent = new Student(id, firstName, lastName, email);
+			
+			// perform update on database
+			studentDbUtil.updateStudent(theStudent);
+			
+			// send them back to the "list students" page
+			listStudents(request, response);
+		}
 
 
 }
