@@ -13,6 +13,6 @@ database connection. Unfortunately this will not scale for multiple users. So, I
 Pooling.
 
 This is an application for a fictional company called **TheBuzz College**. You can list all of the students, you can add a new
-student, and you can also perform some actions on a student, like updating or deleting a student. 
+student, and you can also perform some actions on a student, like updating, deleting a student or search for a student. 
 
 I have created the college database and student table with four fields: id, first_name, last_name and email.
